@@ -1,0 +1,27 @@
+#!/usr/bin/env python3
+
+
+from metasearcher import *
+import subprocess
+
+
+def show_info(text=""):
+    cmd = [
+        "zenity",
+        "--info",
+        "--text", text
+    ]
+    subprocess.run(cmd)
+
+
+files = get_files()
+
+for file in files:
+    if os.path.isdir(file):
+        # find metadata files
+        metadata_files = find_metadata_files_in_directory(file)
+
+        # find tags in these files
+        tags = find_tags_in_metadata_files(metadata_files)
+
+        show_info(" ".join(sorted(tags)))

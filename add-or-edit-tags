@@ -1,0 +1,24 @@
+#!/usr/bin/env python3
+
+from metasearcher import *
+import json
+import os
+import subprocess
+
+
+files = get_files()
+
+for file in files:
+    file_name = os.path.basename(file)
+    metadata_file = file + ".meta"
+    metadata = {}
+    metadata[file_name] = {}
+    old_tags = []
+    if os.path.exists(metadata_file):
+        with open(metadata_file, "r", encoding="utf8") as f:
+            metadata = json.load(f)
+            old_tags = metadata[file_name]["tags"]
+    new_tags = show_gui_add_edit_tags(old_tags)
+    metadata[file_name]["tags"] = new_tags
+    with open(metadata_file, "w", encoding="utf8") as f:
+        json.dump(metadata, f)

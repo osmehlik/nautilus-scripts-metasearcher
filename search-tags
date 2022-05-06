@@ -1,0 +1,61 @@
+#!/usr/bin/env python3
+
+from metasearcher import *
+import os
+import subprocess
+
+
+def show_gui_search_results(files=[]):
+    cmd = [
+        "zenity",
+        "--list",
+        "--column", "File",
+        *files
+    ]
+    completed_process = subprocess.run(cmd, capture_output=True)
+    returncode = completed_process.returncode
+    stdout = completed_process.stdout.decode("utf8").strip()
+    return returncode, stdout
+
+
+def find_file_tags_in_metadata_files(metadata_files):
+    """
+    Returns set of tags present in metadata_files.
+    """
+    file_tags = {}
+
+    tags = set()
+    for metadata_file in metadata_files:
+        metadata_file_dirname = os.path.dirname(metadata_file)
+        with open(metadata_file, "r", encoding="utf8") as f:
+            metadata = json.load(f)
+            for file, value in metadata.items():
+                tags.update(set(value["tags"]))
+                file_tags[metadata_file_dirname + "/" + file] = tags
+    return file_tags
+
+
+def search(dir, search_tags):
+    results = []
+    metadata_files = find_metadata_files_in_directory(dir)
+    for metadata_file in metadata_files:
+        file_tags_found = find_file_tags_in_metadata_files([metadata_file])
+        for file, tags in file_tags_found.items():
+            found = True
+            for tag in search_tags:
+                if tag not in tags:
+                    found = False
+            if found:
+                results.append(file)
+    return results
+
+
+paths = get_files()
+for path in paths:
+    if os.path.isdir(path):
+        search_for_tags = show_gui_add_edit_tags(old_tags=[])
+        search_results = search(path, search_for_tags)
+        returncode, stdout = show_gui_search_results(search_results)
+        if returncode == 0 and len(stdout) != 0:
+            # User clicked Ok
+            subprocess.run(["xdg-open", stdout])
