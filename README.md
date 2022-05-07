@@ -15,15 +15,17 @@ and holds this:
 ```json
 {
     "somefile.meta": {
-        tags: ["aaa", "bbb"]
+        "tags": ["aaa", "bbb"]
     }
 }
 ```
 
 ## Dependencies
 
+- Nautilus
 - Python 3
 - Zenity (`sudo apt-get install zenity`)
+- Make (for installation)
 
 ## Installation
 
