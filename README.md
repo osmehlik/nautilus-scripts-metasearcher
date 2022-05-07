@@ -14,7 +14,7 @@ and holds this:
 
 ```json
 {
-    "somefile.meta": {
+    "somefile": {
         "tags": ["aaa", "bbb"]
     }
 }
@@ -25,6 +25,7 @@ and holds this:
 - Nautilus
 - Python 3
 - Zenity (`sudo apt-get install zenity`)
+- xdg-open
 - Make (for installation)
 
 ## Installation
