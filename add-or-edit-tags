@@ -6,19 +6,16 @@ import os
 import subprocess
 
 
-files = get_files()
+files = get_selected_files()
 
 for file in files:
     file_name = os.path.basename(file)
-    metadata_file = file + ".meta"
-    metadata = {}
-    metadata[file_name] = {}
-    old_tags = []
-    if os.path.exists(metadata_file):
-        with open(metadata_file, "r", encoding="utf8") as f:
-            metadata = json.load(f)
-            old_tags = metadata[file_name]["tags"]
+    metadata_file_path = get_metadata_file_path(file)
+    metadata = load_metadata(metadata_file_path)
+    old_tags = metadata.get(file_name, {}).get("tags", [])
     new_tags = show_gui_add_edit_tags(old_tags)
+    if not file_name in metadata:
+        metadata[file_name] = {}
     metadata[file_name]["tags"] = new_tags
-    with open(metadata_file, "w", encoding="utf8") as f:
-        json.dump(metadata, f)
+    save_metadata(metadata, metadata_file_path)
+

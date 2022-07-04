@@ -14,7 +14,7 @@ def show_info(text=""):
     subprocess.run(cmd)
 
 
-files = get_files()
+files = get_selected_files()
 
 for file in files:
     if os.path.isdir(file):
