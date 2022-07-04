@@ -43,7 +43,7 @@ and holds this:
 - show-tags - Shows all tags used by files in selected directory.
 - search-tags - Search for files with tags in selected directory.
 - set-attribute - Sets value of attribute (a key-value pair) for selected file.
-  (Listing attributes and getting value of attribute is not yet implemented.)
+- get-attribute - Gets value of attribute for selected file.
 
 ## License
 

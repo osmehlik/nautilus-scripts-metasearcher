@@ -92,3 +92,14 @@ def show_entry(text):
     stdout = completed_process.stdout.decode("utf8").strip()
     return stdout if returncode == 0 else None
 
+def show_info(text):
+    """
+    Shows info dialog.
+    """
+    cmd = [
+        "zenity",
+        "--info",
+        "--text", text,
+    ]
+    completed_process = subprocess.run(cmd, capture_output=True)
+
