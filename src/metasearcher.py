@@ -52,10 +52,10 @@ def find_tags_in_metadata_files(metadata_files):
     """
     tags = set()
     for metadata_file in metadata_files:
-        with open(metadata_file, "r", encoding="utf8") as f:
-            metadata = json.load(f)
-            for value in metadata.values():
-                tags.update(set(value["tags"]))
+        metadata = load_metadata(metadata_file)
+        for metadata_for_file in metadata.values():
+            if "tags" in metadata_for_file:
+                tags.update(set(metadata_for_file["tags"]))
     return tags
 
 

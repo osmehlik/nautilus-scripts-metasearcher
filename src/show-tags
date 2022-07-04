@@ -5,15 +5,6 @@ from metasearcher import *
 import subprocess
 
 
-def show_info(text=""):
-    cmd = [
-        "zenity",
-        "--info",
-        "--text", text
-    ]
-    subprocess.run(cmd)
-
-
 files = get_selected_files()
 
 for file in files:
