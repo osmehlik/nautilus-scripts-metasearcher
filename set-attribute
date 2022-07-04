@@ -1,0 +1,18 @@
+#!/usr/bin/env python3
+
+from metasearcher import *
+
+files = get_selected_files()
+
+for file in files:
+    attr_name = show_entry("Enter attribute name:")
+    attr_value = show_entry("Enter attribute value:")
+    if attr_name is not None and attr_value is not None:
+        file_name = os.path.basename(file)
+        metadata_file_path = get_metadata_file_path(file)
+        metadata = load_metadata(metadata_file_path)
+        if not file_name in metadata:
+            metadata[file_name] = {}
+        metadata[file_name][attr_name] = attr_value
+        save_metadata(metadata, metadata_file_path)
+

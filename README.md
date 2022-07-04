@@ -42,6 +42,8 @@ and holds this:
 - add-or-edit-tags - Adds or edits tags for selected file.
 - show-tags - Shows all tags used by files in selected directory.
 - search-tags - Search for files with tags in selected directory.
+- set-attribute - Sets value of attribute (a key-value pair) for selected file.
+  (Listing attributes and getting value of attribute is not yet implemented.)
 
 ## License
 

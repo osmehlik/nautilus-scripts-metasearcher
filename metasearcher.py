@@ -75,3 +75,20 @@ def show_gui_add_edit_tags(old_tags=[]):
     new_tags = stdout.split(" ")
     return new_tags
 
+
+def show_entry(text):
+    """
+    Shows entry dialog.
+    If user clicked Ok, returns text entered into entry dialog.
+    If user clicked Cancel, returns None.
+    """
+    cmd = [
+        "zenity",
+        "--entry",
+        "--text", text,
+    ]
+    completed_process = subprocess.run(cmd, capture_output=True)
+    returncode = completed_process.returncode
+    stdout = completed_process.stdout.decode("utf8").strip()
+    return stdout if returncode == 0 else None
+
