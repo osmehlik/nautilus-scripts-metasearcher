@@ -1,5 +1,5 @@
 
-# metasearcher
+# nautilus-scripts-metasearcher
 
 - A simple set of tools to add/edit tags to files and search for files by tags.
 - It is implemented as a [Nautilus scripts](https://help.ubuntu.com/community/NautilusScriptsHowto).
