@@ -30,6 +30,7 @@ and holds this:
 
 ## Installation
 
+- Run `cd src`
 - Run `make install`
 
 ## Usage
