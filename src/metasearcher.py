@@ -76,6 +76,34 @@ def show_gui_add_edit_tags(old_tags=[]):
     return new_tags
 
 
+def show_gui_set_rating(
+    val_init=50,
+    val_min=0,
+    val_max=100,
+    val_step=1
+):
+    """
+    Shows GUI dialog for setting rating of file.
+    """
+    cmd = [
+        "zenity",
+        "--scale",
+        "--value", str(val_init),
+        "--min-value", str(val_min),
+        "--max-value", str(val_max),
+        "--step", str(val_step),
+        "--title", "Rate the file",
+        "--text", "Set rating for file"
+    ]
+    completed_process = subprocess.run(cmd, capture_output=True)
+    returncode = completed_process.returncode
+    stdout = completed_process.stdout.decode("utf8").strip()
+    if (len(stdout) == 0): # nothing selected
+        return None
+    else:
+        return int(stdout) # selected value
+
+
 def show_entry(text):
     """
     Shows entry dialog.

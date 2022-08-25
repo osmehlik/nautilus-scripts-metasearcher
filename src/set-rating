@@ -1,0 +1,24 @@
+#!/usr/bin/env python3
+
+from metasearcher import *
+
+files = get_selected_files()
+
+for file in files:
+    # find old rating
+    file_name = os.path.basename(file)
+    metadata_file_path = get_metadata_file_path(file)
+    metadata = load_metadata(metadata_file_path)
+    if not file_name in metadata:
+        metadata[file_name] = {}
+    val_init = 50
+    if "rating" in metadata[file_name]:
+        val_init = metadata[file_name]["rating"]
+
+    # find new rating
+    new_rating = show_gui_set_rating()
+
+    # save new rating
+    if new_rating is not None:
+        metadata[file_name]["rating"] = new_rating
+        save_metadata(metadata, metadata_file_path)

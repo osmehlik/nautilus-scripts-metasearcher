@@ -56,6 +56,7 @@ in future.)
 - `set-attribute` - Sets value of attribute (a key-value pair) for selected file.
 - `get-attribute` - Gets value of attribute for selected file.
 - `show-attributes` - Shows all attributes for selected file.
+- `set-rating` - Sets rating for selected file. (GUI for search by rating not yet implemented.)
 
 ## License
 
