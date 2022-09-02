@@ -51,7 +51,7 @@ in future.)
 ## Files
 
 - `show-tags` - Shows all tags used by files in selected directory.
-- `search-tags` - Search for files with tags in selected directory.
+- `find-by-tags` - Search for files with tags in selected directory.
 - `set-attribute` - Sets value of attribute (a key-value pair) for selected file.
 - `set-attribute-tags` - Adds or edits tags for selected file.
 - `set-attribute-rating` - Sets rating for selected file. (GUI for search by rating not yet implemented.)
