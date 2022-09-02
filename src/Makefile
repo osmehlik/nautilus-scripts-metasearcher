@@ -1,6 +1,6 @@
 
 DESTINATION = ~/.local/share/nautilus/scripts/metasearcher/
-EXECUTABLES = add-or-edit-tags show-tags search-tags set-attribute set-attribute-rating get-attribute show-attributes
+EXECUTABLES = show-tags search-tags set-attribute set-attribute-tags set-attribute-rating get-attribute show-attributes
 NONEXECUTABLES = metasearcher.py
 
 install: ${EXECUTABLES} ${NONEXECUTABLES}
