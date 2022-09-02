@@ -1,0 +1,56 @@
+#!/usr/bin/env python3
+
+from metasearcher import *
+
+
+def load_ratings_from_metadata_files_in_directory(directory_path):
+    ratings = {}
+    metadata_files = find_metadata_files_in_directory(directory_path)
+    for metadata_file in metadata_files:
+        metadata_file_dirname = os.path.dirname(metadata_file)
+        metadata = load_metadata(metadata_file)
+        for file, metadata_for_file in metadata.items():
+            if "rating" in metadata_for_file:
+                key = metadata_file_dirname + "/" + file
+                ratings[key] = metadata_for_file["rating"]
+    return ratings
+
+
+def find_rating_greater_or_equal(ratings, greater_or_equal_to):
+    result = {}
+    for file, rating in ratings.items():
+        if rating >= greater_or_equal_to:
+            result[file] = rating
+    return result
+
+
+def show_gui_ratings(attributes: dict) -> None:
+    cmd = [
+        "zenity",
+        "--list",
+        "--title", "File ratings",
+        "--text", "The following files have been found:",
+        "--column", "File",
+        "--column", "Rating"
+    ]
+
+    for file, rating in attributes.items():
+        cmd.append(file)
+        cmd.append(str(rating))
+
+    completed_process = subprocess.run(cmd, capture_output=True)
+    returncode = completed_process.returncode
+    stdout = completed_process.stdout.decode("utf8").strip()
+    return returncode, stdout
+
+
+search_for_rating_ge = int(show_entry("Find rating >= value"))
+paths = get_selected_files()
+for path in paths:
+    if os.path.isdir(path):
+        ratings = load_ratings_from_metadata_files_in_directory(path)
+        search_results = find_rating_greater_or_equal(ratings, search_for_rating_ge)
+        returncode, stdout = show_gui_ratings(search_results)
+    if returncode == 0 and len(stdout) != 0:
+        # User clicked Ok
+        subprocess.run(["xdg-open", stdout])
