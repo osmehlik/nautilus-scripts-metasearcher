@@ -5,6 +5,9 @@ import re
 import subprocess
 
 
+NON_STRING_VALUED_ATTRIBUTES = ["tags", "rating"]
+
+
 def get_selected_files():
     """
     Returns list of selected files in Nautilus.

@@ -6,6 +6,9 @@ files = get_selected_files()
 
 for file in files:
     attr_name = show_entry("Enter attribute name:")
+    if attr_name in NON_STRING_VALUED_ATTRIBUTES:
+        show_info("Attributes with non-string value types cannot be set by this tool")
+        continue
     attr_value = show_entry("Enter attribute value:")
     if attr_name is not None and attr_value is not None:
         metadata_file_path = get_metadata_file_path(file)
