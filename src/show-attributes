@@ -27,9 +27,6 @@ def show_gui_attributes(attributes: dict) -> None:
 files = get_selected_files()
 
 for file in files:
-    file_name = os.path.basename(file)
     metadata_file_path = get_metadata_file_path(file)
     metadata = load_metadata(metadata_file_path)
-    if file_name in metadata:
-        show_gui_attributes(metadata[file_name])
-
+    show_gui_attributes(metadata)

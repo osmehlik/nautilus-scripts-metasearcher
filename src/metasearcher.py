@@ -1,6 +1,7 @@
 import glob
 import json
 import os
+import re
 import subprocess
 
 
@@ -18,6 +19,13 @@ def get_metadata_file_path(data_file_path: str) -> str:
     Returns path to metadata file for the given data file.
     """
     return data_file_path + ".meta"
+
+
+def get_original_file_path(metadata_file_path: str) -> str:
+    """
+    Returns path to data file for the given metadata file.
+    """
+    return re.sub("\.meta$", "", metadata_file_path)
 
 
 def load_metadata(metadata_file_path: str) -> dict:
@@ -53,9 +61,8 @@ def find_tags_in_metadata_files(metadata_files):
     tags = set()
     for metadata_file in metadata_files:
         metadata = load_metadata(metadata_file)
-        for metadata_for_file in metadata.values():
-            if "tags" in metadata_for_file:
-                tags.update(set(metadata_for_file["tags"]))
+        if "tags" in metadata:
+            tags.update(set(metadata["tags"]))
     return tags
 
 

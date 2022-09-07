@@ -26,12 +26,11 @@ def find_file_tags_in_metadata_files(metadata_files):
 
     tags = set()
     for metadata_file in metadata_files:
-        metadata_file_dirname = os.path.dirname(metadata_file)
+        original_file_path = get_original_file_path(metadata_file)
         metadata = load_metadata(metadata_file)
-        for file, metadata_for_file in metadata.items():
-            if "tags" in metadata_for_file:
-                tags.update(set(metadata_for_file["tags"]))
-                file_tags[metadata_file_dirname + "/" + file] = tags
+        if "tags" in metadata:
+            tags.update(set(metadata["tags"]))
+            file_tags[original_file_path] = tags
     return file_tags
 
 

@@ -9,13 +9,9 @@ import subprocess
 files = get_selected_files()
 
 for file in files:
-    file_name = os.path.basename(file)
     metadata_file_path = get_metadata_file_path(file)
     metadata = load_metadata(metadata_file_path)
-    old_tags = metadata.get(file_name, {}).get("tags", [])
+    old_tags = metadata.get("tags", [])
     new_tags = show_gui_add_edit_tags(old_tags)
-    if not file_name in metadata:
-        metadata[file_name] = {}
-    metadata[file_name]["tags"] = new_tags
+    metadata["tags"] = new_tags
     save_metadata(metadata, metadata_file_path)
-

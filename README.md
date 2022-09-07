@@ -18,17 +18,12 @@ and could hold something like this:
 
 ```json
 {
-    "somefile": {
-        "tags": ["tag1", "tag2"],
-        "some_attribute": "value_of_some_attribute",
-        "other_attribute": "value_of_other_attribute"
-    }
+    "tags": ["tag1", "tag2"],
+    "rating": 85,
+    "some_attribute": "value_of_some_attribute",
+    "other_attribute": "value_of_other_attribute"
 }
 ```
-
-(Metadata for file in metadata file are under key named by file's path,
-because there could be one metadata file holding data for multiple files
-in future.)
 
 ## Dependencies
 
