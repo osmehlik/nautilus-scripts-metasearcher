@@ -3,6 +3,20 @@
 from metasearcher import *
 
 
+def show_gui_find_by_rating_results(attributes: dict):
+    values = []
+    for file, rating in attributes.items():
+        values.append(file)
+        values.append(str(rating))
+
+    return show_list(
+        "Search Results",
+        "The following files have been found:",
+        ["File", "Rating"],
+        values
+    )
+
+
 def load_ratings_from_metadata_files_in_directory(directory_path):
     ratings = {}
     metadata_files = find_metadata_files_in_directory(directory_path)
@@ -22,31 +36,13 @@ def find_rating_greater_or_equal(ratings, greater_or_equal_to):
     return result
 
 
-def show_gui_ratings(attributes: dict) -> None:
-    cmd = [
-        "zenity",
-        "--list",
-        "--title", "File ratings",
-        "--text", "The following files have been found:",
-        "--column", "File",
-        "--column", "Rating"
-    ]
-
-    for file, rating in attributes.items():
-        cmd.append(file)
-        cmd.append(str(rating))
-
-    retcode, stdout = run(cmd)
-    return retcode, stdout
-
-
 search_for_rating_ge = int(show_entry("Find rating >= value"))
 paths = get_selected_files()
 for path in paths:
     if os.path.isdir(path):
         ratings = load_ratings_from_metadata_files_in_directory(path)
         search_results = find_rating_greater_or_equal(ratings, search_for_rating_ge)
-        retcode, stdout = show_gui_ratings(search_results)
+        retcode, stdout = show_gui_find_by_rating_results(search_results)
     if retcode == 0 and len(stdout) != 0:
         # User clicked Ok
         retcode, stdout = run(["xdg-open", stdout])

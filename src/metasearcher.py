@@ -134,6 +134,7 @@ def show_entry(text):
     retcode, stdout = run(cmd)
     return stdout if retcode == 0 else None
 
+
 def show_info(text):
     """
     Shows info dialog.
@@ -144,3 +145,21 @@ def show_info(text):
         "--text", text,
     ]
     retcode, stdout = run(cmd)
+
+
+def show_list(title, text, columns: list[str], values: list[str]):
+    cmd = [
+        "zenity",
+        "--list",
+        "--title", title,
+        "--text", text
+    ]
+
+    for column in columns:
+        cmd.extend(["--column", column])
+
+    for value in values:
+        cmd.append(value)
+
+    retcode, stdout = run(cmd)
+    return retcode, stdout

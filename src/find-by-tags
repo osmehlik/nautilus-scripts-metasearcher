@@ -4,15 +4,13 @@ from metasearcher import *
 import os
 
 
-def show_gui_search_results(files=[]):
-    cmd = [
-        "zenity",
-        "--list",
-        "--column", "File",
-        *files
-    ]
-    retcode, stdout = run(cmd)
-    return retcode, stdout
+def show_gui_find_by_tags_results(files=[]):
+    return show_list(
+        "Search Results",
+        "The following files have been found:",
+        ["File"],
+        files
+    )
 
 
 def find_file_tags_in_metadata_files(metadata_files):
@@ -51,7 +49,7 @@ for path in paths:
     if os.path.isdir(path):
         search_for_tags = show_gui_add_edit_tags(old_tags=[])
         search_results = search(path, search_for_tags)
-        returncode, stdout = show_gui_search_results(search_results)
+        returncode, stdout = show_gui_find_by_tags_results(search_results)
         if returncode == 0 and len(stdout) != 0:
             # User clicked Ok
             retcode, stdout = run(["xdg-open", stdout])
