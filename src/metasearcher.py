@@ -21,7 +21,7 @@ def get_metadata_file_path(data_file_path: str) -> str:
     return data_file_path + ".meta"
 
 
-def get_original_file_path(metadata_file_path: str) -> str:
+def get_data_file_path(metadata_file_path: str) -> str:
     """
     Returns path to data file for the given metadata file.
     """

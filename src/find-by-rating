@@ -7,10 +7,10 @@ def load_ratings_from_metadata_files_in_directory(directory_path):
     ratings = {}
     metadata_files = find_metadata_files_in_directory(directory_path)
     for metadata_file in metadata_files:
-        original_file_path = get_original_file_path(metadata_file)
+        data_file = get_data_file_path(metadata_file)
         metadata = load_metadata(metadata_file)
         if "rating" in metadata:
-            ratings[original_file_path] = metadata["rating"]
+            ratings[data_file] = metadata["rating"]
     return ratings
 
 
