@@ -1,55 +1,16 @@
 #!/usr/bin/env python3
 
 from metasearcher import *
-import os
 
 
-def show_gui_find_by_tags_results(files=[]):
-    return show_list(
-        "Search Results",
-        "The following files have been found:",
-        ["File"],
-        files
-    )
-
-
-def find_file_tags_in_metadata_files(metadata_files):
-    """
-    Returns set of tags present in metadata_files.
-    """
-    file_tags = {}
-
-    tags = set()
-    for metadata_file in metadata_files:
-        data_file = get_data_file_path(metadata_file)
-        metadata = load_metadata(metadata_file)
-        if "tags" in metadata:
-            tags.update(set(metadata["tags"]))
-            file_tags[data_file] = tags
-    return file_tags
-
-
-def search(dir, search_tags):
-    results = []
-    metadata_files = find_metadata_files_in_directory(dir)
-    for metadata_file in metadata_files:
-        file_tags_found = find_file_tags_in_metadata_files([metadata_file])
-        for file, tags in file_tags_found.items():
-            found = True
-            for tag in search_tags:
-                if tag not in tags:
-                    found = False
-            if found:
-                results.append(file)
-    return results
-
-
-paths = get_selected_files()
-for path in paths:
-    if os.path.isdir(path):
-        search_for_tags = show_gui_add_edit_tags(old_tags=[])
-        search_results = search(path, search_for_tags)
-        returncode, stdout = show_gui_find_by_tags_results(search_results)
-        if returncode == 0 and len(stdout) != 0:
-            # User clicked Ok
-            retcode, stdout = run(["xdg-open", stdout])
+if __name__ == "__main__":
+    paths = get_selected_files()
+    for path in paths:
+        if os.path.isdir(path):
+            tags = show_gui_add_edit_tags(old_tags=[])
+            rating_ge = None
+            find_by_results = find_by(path, rating_ge, tags)
+            retcode, stdout = show_gui_find_by_results(find_by_results)
+            if retcode == 0 and len(stdout) != 0:
+                # User clicked Ok
+                retcode, stdout = run(["xdg-open", stdout])

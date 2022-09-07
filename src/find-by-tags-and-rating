@@ -7,7 +7,7 @@ if __name__ == "__main__":
     paths = get_selected_files()
     for path in paths:
         if os.path.isdir(path):
-            tags = None
+            tags = show_gui_add_edit_tags(old_tags=[])
             rating_ge = int(show_entry("Find rating >= value"))
             find_by_results = find_by(path, rating_ge, tags)
             retcode, stdout = show_gui_find_by_results(find_by_results)

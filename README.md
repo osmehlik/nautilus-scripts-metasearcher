@@ -45,11 +45,13 @@ and could hold something like this:
 
 ## Files
 
-- `find-by-rating` - Search for files with rating above some value in selected directory.
-- `find-by-tags` - Search for files with tags in selected directory.
+- `find-by-rating` - Find files with rating >= some value in selected directory.
+- `find-by-tags` - Find files with specified tags in selected directory.
+- `find-by-tags-and-rating` - Find files with specified tags
+                              with rating >= some value in selected directory.
 - `get-attribute` - Gets value of attribute for selected file.
-- `set-attribute-rating` - Sets rating for selected file.
-- `set-attribute-tags` - Adds or edits tags for selected file.
+- `set-attribute_rating` - Sets rating for selected file.
+- `set-attribute_tags` - Adds or edits tags for selected file.
 - `set-attribute` - Sets value of attribute (a key-value pair) for selected file.
 - `show-attributes` - Shows all attributes for selected file.
 - `show-tags` - Shows all tags used by files in selected directory.
