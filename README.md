@@ -30,8 +30,8 @@ and could hold something like this:
 - Nautilus
 - Python 3
 - Zenity (`sudo apt-get install zenity`)
-- xdg-open
-- Make (for installation)
+- xdg-open (`sudo apt-get install xdg-utils`)
+- Make for installation (`sudo apt-get install make`)
 
 ## Installation
 
