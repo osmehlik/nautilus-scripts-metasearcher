@@ -69,6 +69,16 @@ def find_tags_in_metadata_files(metadata_files):
     return tags
 
 
+def run(cmd):
+    """
+    Runs command, returns commands return code, stdout
+    """
+    completed_process = subprocess.run(cmd, capture_output=True)
+    retcode = completed_process.returncode
+    stdout = completed_process.stdout.decode("utf8").strip()
+    return retcode, stdout
+
+
 def show_gui_add_edit_tags(old_tags=[]):
     """
     Shows GUI dialog for adding or editing tags.
@@ -79,9 +89,7 @@ def show_gui_add_edit_tags(old_tags=[]):
         "--text", "Enter tags (separated by space)",
         "--entry-text", " ".join(old_tags)
     ]
-    completed_process = subprocess.run(cmd, capture_output=True)
-    returncode = completed_process.returncode
-    stdout = completed_process.stdout.decode("utf8").strip()
+    retcode, stdout = run(cmd)
     new_tags = stdout.split(" ")
     return new_tags
 
@@ -105,9 +113,7 @@ def show_gui_set_rating(
         "--title", "Rate the file",
         "--text", "Set rating for file"
     ]
-    completed_process = subprocess.run(cmd, capture_output=True)
-    returncode = completed_process.returncode
-    stdout = completed_process.stdout.decode("utf8").strip()
+    retcode, stdout = run(cmd)
     if (len(stdout) == 0): # nothing selected
         return None
     else:
@@ -125,10 +131,8 @@ def show_entry(text):
         "--entry",
         "--text", text,
     ]
-    completed_process = subprocess.run(cmd, capture_output=True)
-    returncode = completed_process.returncode
-    stdout = completed_process.stdout.decode("utf8").strip()
-    return stdout if returncode == 0 else None
+    retcode, stdout = run(cmd)
+    return stdout if retcode == 0 else None
 
 def show_info(text):
     """
@@ -139,5 +143,4 @@ def show_info(text):
         "--info",
         "--text", text,
     ]
-    completed_process = subprocess.run(cmd, capture_output=True)
-
+    retcode, stdout = run(cmd)

@@ -2,7 +2,6 @@
 
 
 from metasearcher import *
-import subprocess
 
 
 files = get_selected_files()
